@@ -48,10 +48,10 @@ jobs:
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
             
             - name: Build Docker Image
-              run: docker build -t italocarlo0604/aula-docker-ci-api:${{ steps.generate_tag.outputs.sha }} .
+              run: docker build -t janiogameleira/aula_docker_devops_ifal:${{ steps.generate_tag.outputs.sha }} .
 
             - name: Push Docker Image to DockerHub
-              run: docker push italocarlo0604/aula-docker-ci-api:${{ steps.generate_tag.outputs.sha }}
+              run: docker push janiogameleira/aula_docker_devops_ifal:${{ steps.generate_tag.outputs.sha }}
               
 
           
