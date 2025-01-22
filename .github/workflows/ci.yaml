@@ -33,18 +33,25 @@ jobs:
             
             - name: Running Tests
               run: yarn test
+
+            - name: Generate Tag
+              id: generate_tag
+              run: |
+                  SHA=$(echo $GITHUB_SHA | head -c7)
+                  echo "sha=$SHA" >> $GITHUB_OUTPUT
+                  
             
             - name: Login into the Container Registry
               uses: docker/login-action@v3
               with:
-                username: ${{ secrets.DOCKER_HUB }}
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
             
             - name: Build Docker Image
-              run: docker build -t janiogameleira/aula_docker_devops_ifal:latest .
+              run: docker build -t italocarlo0604/aula-docker-ci-api:${{ steps.generate_tag.outputs.sha }} .
 
             - name: Push Docker Image to DockerHub
-              run: docker push janiogameleira/aula_docker_devops_ifal
+              run: docker push italocarlo0604/aula-docker-ci-api:${{ steps.generate_tag.outputs.sha }}
               
 
           
